@@ -44,6 +44,7 @@ const MovieDetails = ( props) => {
           </li>
         ))}
       </Paper>
+     
       <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
@@ -55,6 +56,16 @@ const MovieDetails = ( props) => {
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip label="Production" sx={styles.chipLabel} color="primary" />
+        </li>
+        {movie.production_countries.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name}  />
+          </li>
+        ))}
       </Paper>
       </>
   );
