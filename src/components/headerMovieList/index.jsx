@@ -6,6 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 const styles = {
+  avatar: {
+    backgroundColor: "rgb(255, 0, 0)",
+  },
   root: {
     display: "flex",
     justifyContent: "space-around",
@@ -16,9 +19,12 @@ const styles = {
 };
 
 const Header = (props ) => {
+  console.log("header component")
   const title = props.title
-
+  const movie = JSON.parse(localStorage.getItem("favourites")); 
+console.log("the movie ",movie)
   return (
+    
     <Paper component="div" sx={styles.root}>
       <IconButton
         aria-label="go back"
@@ -27,6 +33,7 @@ const Header = (props ) => {
       </IconButton>
 
       <Typography variant="h4" component="h3">
+
         {title}
       </Typography>
       <IconButton
