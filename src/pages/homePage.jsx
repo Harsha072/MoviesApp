@@ -1,5 +1,6 @@
-import React from "react";
+// import React from "react";F
 import Header from "../components/headerMovieList";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import MovieList from "../components/movieList";
 
@@ -10,7 +11,24 @@ const styles = {
 };
 
 const MovieListPage = (props) => {
-  const movies = props.movies;
+  // const movies = props.movies;
+
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+         console.log(json);
+        return json.results;
+      })
+      .then((movies) => {
+        setMovies(movies);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Grid container sx={styles.root}>
