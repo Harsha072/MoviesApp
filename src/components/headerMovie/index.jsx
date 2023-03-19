@@ -11,8 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 const styles = {
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
-    display: "flex",
-     alignItems: "center"
+    
   },
     root: {  
     display: "flex",
@@ -31,7 +30,10 @@ console.log("movie header")
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
-        <div>
+        
+      </IconButton>
+      <Typography>
+         <div>
           
         {movies && movies.length > 0 && (
           <Avatar sx={styles.avatar}>
@@ -39,8 +41,7 @@ console.log("movie header")
           </Avatar>
         )}
         </div>
-        
-      </IconButton>
+      </Typography>
 
       <Typography variant="h4" component="h3">
   
