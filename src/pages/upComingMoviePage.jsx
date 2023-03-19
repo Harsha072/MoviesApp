@@ -3,10 +3,10 @@ import PageTemplate from '../components/templateMovieListPage'
 import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
 
 
-const HomePage = (props) => {
+const UpcomingMoviePage = (props) => {
   const [movies, setMovies] = useState([]);
-  const favourites = movies.filter(m => m.favourite)
-  localStorage.setItem('favourites', JSON.stringify(favourites))
+//   const favourites = movies.filter(m => m.favourite)
+//   localStorage.setItem('favourites', JSON.stringify(favourites))
 
   const addToFavourites = (movieId) => {
     const updatedMovies = movies.map((m) =>
@@ -16,7 +16,7 @@ const HomePage = (props) => {
   };
 
   useEffect(() => {
-    getMovies().then(movies => {
+    getUpcomingMovies().then(movies => {
       setMovies(movies);
     });
 
@@ -25,10 +25,10 @@ const HomePage = (props) => {
 
   return (
     <PageTemplate
-      title='Discover Movies'
+      title='Upcoming Movies'
       movies={movies}
       selectFavourite={addToFavourites}
     />
   );
 };
-export default HomePage;
+export default UpcomingMoviePage;

@@ -35,15 +35,17 @@ const SiteHeader = () => {
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favourites" },
-    { label: "Option 3", path: "/" },
+    { label: "Upcoming movies", path: "/movies/upcoming" },
     { label: "Option 4", path: "/" },
   ];
 
   const handleMenuSelect = (pageURL) => {
+    console.log("page url ",pageURL)
     navigate(pageURL);
   };
 
   const handleMenu = (event) => {
+    console.log("on click options",event.currentTarget)
     setAnchorEl(event.currentTarget);
   };
 
