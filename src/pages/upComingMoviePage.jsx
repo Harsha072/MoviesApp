@@ -51,7 +51,6 @@ const UpcomingMoviePage = (props) => {
   console.log("data in up ",data)
   const displayedMovies = filterFunction(movies);
 
-
   return (
     <>
       <PageTemplate
