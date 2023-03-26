@@ -98,10 +98,7 @@ const genreFiltering = {
 
 const HomePage = (props) => {
   const { data, error, isLoading, isError } = useQuery("discover", getMovies);
-  const { filterValues, setFilterValues, filterFunction } = useFiltering(
-    [],
-    [titleFiltering, genreFiltering]
-  );
+  const { filterValues, setFilterValues, filterFunction } = useFiltering( [], [titleFiltering, genreFiltering] );
 
   if (isLoading) {
     return <Spinner />;
@@ -121,6 +118,7 @@ const HomePage = (props) => {
   };
 
   const movies = data ? data.results : [];
+  console.log("data in home page ",data)
   const displayedMovies = filterFunction(movies);
 
 

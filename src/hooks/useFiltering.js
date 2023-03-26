@@ -11,10 +11,13 @@ const useFiltering = (data, filters) => {
 
   const filteringConditions = filters.map((f) => f.condition);
   const filterFunction = (collection) =>
+
     filteringConditions.reduce((data, conditionFn, index) => {
       return data.filter((item) => {
+     
           return conditionFn(item, filterValues[index].value);
       });
+    
     }, collection);
 
   return {
