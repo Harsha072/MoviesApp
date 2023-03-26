@@ -15,6 +15,7 @@ import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
 
 
 const styles = {
@@ -80,12 +81,15 @@ export default function MovieCard({ movie, action })
       </CardContent>
       <CardActions disableSpacing>
       {action(movie)}
-
-        <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
+      
+      <Link to={`/movies/${movie.id}`}>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <PlaylistAddIcon style={{ marginRight: "8px" }} />
+    <Button variant="outlined" size="medium" color="primary">
+      More Info ...
+    </Button>
+  </div>
+</Link>
 
       </CardActions>
     </Card>
