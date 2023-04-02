@@ -1,12 +1,10 @@
-
-
-import React from "react";
-import PageTemplate from "../components/templateMovieListPage";
+import React, { useState, useEffect } from "react";
+import PageTemplate from '../components/templateMovieListPage'
+import { getMovies, getUpcomingMovies, getPopularMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query";
+import useFiltering from "../hooks/useFiltering";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
-import { getMovies } from "../api/tmdb-api";
-import useFiltering from "../hooks/useFiltering";
 
 import MovieFilterUI, {
   titleFilter,
@@ -24,9 +22,13 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
-const HomePage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
-  const { filterValues, setFilterValues, filterFunction } = useFiltering( [], [titleFiltering, genreFiltering] );
+
+const PopularMoviePage = (props) => {
+  const { data, error, isLoading, isError } = useQuery("popular", getPopularMovies);
+  const { filterValues, setFilterValues, filterFunction } = useFiltering(
+    [],
+    [titleFiltering, genreFiltering]
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -46,27 +48,27 @@ const HomePage = (props) => {
   };
 
   const movies = data ? data.results : [];
-  console.log("data in home page ",data)
+  console.log("data in up ",data)
   const displayedMovies = filterFunction(movies);
-
 
   return (
     <>
-       <PageTemplate
-        title="Discover Movies"
-        movies={displayedMovies}
-        action={(movie) => {
-          return <AddToFavouritesIcon movie={movie} />
+      <PageTemplate
+      title='Popular Movies'
+      movies={displayedMovies}
+       action={(movie) => {
+          return 
         }}
-      />
-      <MovieFilterUI
+        
+    />
+     <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
       />
     </>
+  
+    
   );
 };
-
-export default HomePage;
-
+export default PopularMoviePage;

@@ -20,14 +20,60 @@ export const getMovies = () => {
      throw error
   });
 };
+export const getActors = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
+export const getSimilarMovies = (args) => {
+  console.log("calling similar",args)
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
 export const getUpcomingMovies = () => {
   return fetch(
          `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
        ).then((response) => {
     if (!response.ok) {
-      console.log("the response ",response)
+      
       throw new Error(response.json().message);
     }
+    console.log("the response ",response)
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
+
+export const getPopularMovies = () => {
+  return fetch(
+         `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+       ).then((response) => {
+    if (!response.ok) {
+      
+      throw new Error(response.json().message);
+    }
+    console.log("the response ",response)
     return response.json();
   })
   .catch((error) => {
@@ -43,7 +89,7 @@ export const getUpcomingMovies = () => {
   //     .then(json => json.results);
   // };
   export const getMovie = (args) => {
-    // console.log(args)
+    console.log("get nmovie",args)
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
@@ -58,7 +104,22 @@ export const getUpcomingMovies = () => {
       throw error
    });
   };
-  
+  export const getActor = (args) => {
+    console.log("get actor",args)
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
 
   export const getGenres = async () => {
     return fetch(

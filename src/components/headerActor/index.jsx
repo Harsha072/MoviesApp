@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-const MovieHeader = (props) => {
+const ActorHeader = (props) => {
   const movie = props.movie;
   const movies = JSON.parse(localStorage.getItem("favourites"));
 console.log("movie header",props.movie)
@@ -32,26 +32,21 @@ console.log("movie header",props.movie)
         <ArrowBackIcon color="primary" fontSize="large" />
         
       </IconButton>
-      <Typography>
+      {/* <Typography>
          <div>
-          
         {movies && movies.length > 0 && (
           <Avatar sx={styles.avatar}>
             <FavoriteIcon />
           </Avatar>
         )}
         </div>
-      </Typography>
-
-      <Typography variant="h4" component="h3">
-  
-        {movie.title}{"   "}
-        <a href={movie.homepage}>
-          <HomeIcon color="primary"  fontSize="='large"/>
-        </a>
-        <br />
-        <span>{`${movie.tagline}`} </span>
-      </Typography>
+      </Typography> */}
+      <div style={{ textAlign: "center" }}>
+  <Typography variant="h4" component="h3">
+    {movie.name}{"   "}
+    <br />
+  </Typography>
+</div>
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />
       </IconButton>
@@ -59,4 +54,4 @@ console.log("movie header",props.movie)
   );
 };
 
-export default MovieHeader;
+export default ActorHeader;

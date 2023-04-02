@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../headerMovieList/index";
 import Grid from "@mui/material/Grid";
-import MovieList from "../movieList/index";
+import ActorsList from "../actorsList/index";
 
 const styles = {
   root: { 
@@ -9,16 +9,16 @@ const styles = {
   }
 };
 
-function MovieListPageTemplate({ movies, title, action }) 
+function ActorsListPageTemplate({ movies, title, action }) 
   {
-    console.log("movies :::")
+    console.log("movies :::",movies)
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
         <Header title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        {   <MovieList action={action} movies={movies} />
+        {   <ActorsList action={action} movies={movies} />
         /* <MovieList
           selectFavourite={selectFavourite}
           movies={movies}
@@ -27,4 +27,4 @@ function MovieListPageTemplate({ movies, title, action })
     </Grid>
   );
 }
-export default MovieListPageTemplate;
+export default ActorsListPageTemplate;
