@@ -44,7 +44,7 @@ const SiteHeader = () => {
       label: "Popular",
       subMenu: [
         { label: "Actors", path: "/actors/popular" },
-        { label: "Tv Series", path: "/movies/genre/comedy" },
+        { label: "Tv Series", path: "/tv/popular" },
         { label: "Movies", path: "/movies/popular" },
       ],
     },

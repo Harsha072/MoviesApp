@@ -15,9 +15,7 @@ import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { MoviesContext } from "../../contexts/moviesContext";
-
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
-import ActorDetails from "../actorDetails";
 
 
 const styles = {
@@ -26,26 +24,18 @@ const styles = {
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
-  profile:{
-    backgroundColor: "red",
-     width: "150px",
-     height: "150px",
-     
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "right",
-  }
 };
 
-export default function ActorCard({ movie, action }) 
+export default function SeriesCard({ movie, action }) 
   {
-  const context = useContext(MoviesContext);
- 
+    console.log("series ",movie)
+  const { favourites, addToFavourites } = useContext(MoviesContext);
 
-  const handleSetKnownFor = (actor) => {
-    context.setKnown(actor);
-  };
-
+  if (favourites.find((id) => id === movie.id)) {
+    movie.favourite = true;
+  } else {
+    movie.favourite = false
+  }
   
 
   return (
@@ -66,25 +56,38 @@ export default function ActorCard({ movie, action })
       }
     />
 
- 
-      <div style={{ display: "flex", alignItems: "center" }}><Avatar sx={styles.profile} alt="Movie Poster" src={`https://image.tmdb.org/t/p/w500${movie.profile_path}`} /></div>
+      <CardMedia
+        sx={styles.media}
+        image={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+            : img
+        }
+      />
       <CardContent>
         <Grid container>
           <Grid item xs={6}>
-            
+            <Typography variant="h6" component="p">
+              <CalendarIcon fontSize="small" />
+              {movie.first_air_date}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-          
+            <Typography variant="h6" component="p">
+              <StarRateIcon fontSize="small" />
+              {"  "} {movie.vote_average
+}{" "}
+            </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
       {action(movie)}
       
-      <Link to={`/actor/${movie.id}`}>
+      <Link to={`/movies/${movie.id}`}>
   <div style={{ display: "flex", alignItems: "center" }}>
-    
-    <Button onClick={() => handleSetKnownFor(movie)} variant="outlined" size="medium" color="primary">
+    <PlaylistAddIcon style={{ marginRight: "8px" }} />
+    <Button variant="outlined" size="medium" color="primary">
       More Info ...
     </Button>
   </div>

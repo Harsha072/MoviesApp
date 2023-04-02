@@ -1,16 +1,15 @@
 import React from "react";
-import ActorCard from "../actorCard";
+import SeriesCard from "../seriesCard";
 import Grid from "@mui/material/Grid";
 
-const ActorsList = ( {movies, action }) => {
-  console.log(movies)
+const SeriesList = ( {movies, action }) => {
+
   let movieCards = movies.map((m) => (
-   
     <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
-      <ActorCard key={m.id} movie={m} action={action} />
+      <SeriesCard key={m.id} movie={m} action={action} />
     </Grid>
   ));
   return movieCards;
 };
 
-export default ActorsList;
+export default SeriesList;

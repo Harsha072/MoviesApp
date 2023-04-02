@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -11,8 +11,8 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews'
 import MovieList from "../movieList";
-import SimilarMovieList from "../similarMovieList";
-
+import ActorsKnownForList from "../actorsKnownForList";
+import { MoviesContext } from "../../contexts/moviesContext";
 const styles = {
     chipSet: {
         display: "flex",
@@ -33,9 +33,13 @@ const styles = {
     },
 };
 
-const ActorDetails = ({ movie, action }) => {
+const ActorDetails = ({ movie, action,credits}) => {
     const [drawerOpen, setDrawerOpen] = useState(false); // New
-    console.log("in actors details ", movie)
+ 
+console.log("in detlkjlfd ",credits.movie.known_for)
+ 
+
+
     return (
         <>
             <Typography variant="h5" component="h3">
@@ -50,7 +54,7 @@ const ActorDetails = ({ movie, action }) => {
             <Typography variant="body1" align="left" sx={{ fontFamily: 'Roboto, sans-serif' }}>
                 Place of Birth: {movie.place_of_birth}
             </Typography>
-</Paper>
+           </Paper>
             <Paper component="ul" sx={styles.chipSet}>
                 <Typography variant="body1" align="left" sx={{ fontFamily: 'Roboto, sans-serif' }}>
                     Also Known as:&nbsp;
@@ -62,20 +66,16 @@ const ActorDetails = ({ movie, action }) => {
                 ))}
 
             </Paper>
-
-            {/* <Paper component="ul" sx={styles.chipSet}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-        <Chip
-          icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
-        />
-        <Chip
-          icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
-        />
-        <Chip label={`Released: ${movie.release_date}`} />
-      </Paper> */}
             <br />
+            <Paper component="ul" sx={styles.chipSet}>
+      <Typography variant="h5" component="h3">
+          Similar movies
+      </Typography>
+      </Paper>
+      <br />
+      <Grid item container spacing={5}>
+      <ActorsKnownForList movies ={credits.movie.known_for} action={action} ></ActorsKnownForList> 
+      </Grid>
         </>
     );
 };

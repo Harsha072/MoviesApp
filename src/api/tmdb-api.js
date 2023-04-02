@@ -33,6 +33,7 @@ export const getActors = () => {
      throw error
   });
 };
+
 export const getSimilarMovies = (args) => {
   console.log("calling similar",args)
   const [, idPart] = args.queryKey;
@@ -67,7 +68,22 @@ export const getUpcomingMovies = () => {
 
 export const getPopularMovies = () => {
   return fetch(
-         `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+         `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+       ).then((response) => {
+    if (!response.ok) {
+      
+      throw new Error(response.json().message);
+    }
+    console.log("the response ",response)
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
+export const getPopularTvSeries = () => {
+  return fetch(
+         `https://api.themoviedb.org/3/tv/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
        ).then((response) => {
     if (!response.ok) {
       
@@ -104,6 +120,23 @@ export const getPopularMovies = () => {
       throw error
    });
   };
+  
+  export const getSeries = (args) => {
+    console.log("get nmovie",args)
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
   export const getActor = (args) => {
     console.log("get actor",args)
     const [, idPart] = args.queryKey;
@@ -120,6 +153,23 @@ export const getPopularMovies = () => {
       throw error
    });
   };
+  export const getActorCredits = (args) => {
+    console.log("get actor",args)
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
+
 
   export const getGenres = async () => {
     return fetch(
