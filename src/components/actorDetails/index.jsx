@@ -16,7 +16,7 @@ import { MoviesContext } from "../../contexts/moviesContext";
 const styles = {
     chipSet: {
         display: "flex",
-        justifyContent: "left",
+        justifyContent: "center",
         alignItems: "center",
         flexWrap: "wrap",
         listStyle: "none",
@@ -50,26 +50,16 @@ console.log("in detlkjlfd ",credits.movie.known_for)
                 {movie.biography}
             </Typography>
             <br></br>
-            <Paper component="ul" sx={styles.chipSet}>
+            {/* <Paper component="ul" sx={styles.chipSet}>
             <Typography variant="body1" align="left" sx={{ fontFamily: 'Roboto, sans-serif' }}>
                 Place of Birth: {movie.place_of_birth}
             </Typography>
-           </Paper>
-            <Paper component="ul" sx={styles.chipSet}>
-                <Typography variant="body1" align="left" sx={{ fontFamily: 'Roboto, sans-serif' }}>
-                    Also Known as:&nbsp;
-                </Typography>
-                {movie.also_known_as.map((g, index) => (
-                    <li key={index} style={{ fontFamily: 'Roboto, sans-serif' }}>
-                        {index === 0 ? g : `, ${g}`}
-                    </li>
-                ))}
-
-            </Paper>
+           </Paper> */}
+           
             <br />
             <Paper component="ul" sx={styles.chipSet}>
       <Typography variant="h5" component="h3">
-          Similar movies
+         Known for
       </Typography>
       </Paper>
       <br />

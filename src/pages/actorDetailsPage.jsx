@@ -23,7 +23,9 @@ const ActorDetailsPage = () => {
     ["actorCredits", { id: id }],
     getActorCredits
   );
-
+const { data: cachedKnowFor } = useQuery('knowFor', () => Promise.resolve(knowFor), {
+  staleTime: Infinity,
+});
  console.log("details page ",knowFor)
 
 

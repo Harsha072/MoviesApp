@@ -8,6 +8,9 @@ import Spinner from '../spinner'
 import Avatar from "@mui/material/Avatar";
 import ActorHeader from "../headerActor"
 import Typography from "@mui/material/Typography";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 const styles = {
     gridListRoot: {
         display: 'flex',
@@ -42,12 +45,41 @@ const TemplateMoviePage = ({ movie, children }) => {
         <>
             <ActorHeader movie={movie} />
 
-            <Grid container spacing={2} style={{ padding: "15px" }}>
+            <Grid container spacing={3} style={{ padding: "15px" }}>
                 <Grid item xs={3}>
                     <div sx={styles.gridListRoot}>
                         <Avatar sx={styles.profile} alt="Movie Poster" src={`https://image.tmdb.org/t/p/w500${movie.profile_path}`} />
                     </div>
-                    <br></br>
+                    <br />
+                    <br />
+                    <Typography variant="h5" component="p">
+                        Personal Info
+                    </Typography>
+                    <Grid container direction="column" spacing={1}>
+                        <List>
+                            <ListItem>
+                                <ListItemText primary="Known For" secondary = {movie.known_for_department} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Known Credits" secondary="71" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Gender" secondary={movie.gender === 1 ? "Female" : movie.gender === 2 ? "Male" : "Unknown"}  />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Birthdate" secondary={movie.birthday} />
+                            </ListItem>
+                            {/* <ListItem>
+                                <ListItemText primary="Day of Death" secondary={movie.deathday} />
+                            </ListItem> */}
+                            <ListItem>
+                                <ListItemText primary="Place of Birth" secondary={movie.place_of_birth} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Also Known As" secondary={movie.also_known_as.join(", ")} />
+                            </ListItem>
+                        </List>
+                    </Grid>
                 </Grid>
 
 
@@ -56,44 +88,8 @@ const TemplateMoviePage = ({ movie, children }) => {
                     {children}
 
                 </Grid>
-                <Grid item xs={5}  >
-                    <Typography variant="h5" component="p">
-                        Personal Info
-                    </Typography>
 
-                </Grid>
-                {/* <Grid item xs={4}>
 
-                    <Typography variant="body1">Personal Info</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Known For</Typography>
-                    <Typography variant="body2">Acting</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Known Credits</Typography>
-                    <Typography variant="body2">71</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Gender</Typography>
-                    <Typography variant="body2">Female</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Birthdate</Typography>
-                    <Typography variant="body2">1968-08-17</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Day of Death</Typography>
-                    <Typography variant="body2">2021-04-16 (52 years old)</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Place of Birth</Typography>
-                    <Typography variant="body2">London, England, UK</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography variant="body1">Also Known As</Typography>
-                    <Typography variant="body2">Хелен Маккрори</Typography>
-                </Grid> */}
 
 
             </Grid>

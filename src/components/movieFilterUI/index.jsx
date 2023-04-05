@@ -26,7 +26,7 @@ const styles = {
 
 const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+console.log("title- ",titleFilter," genre- ",genreFilter)
   return (
     <>
       <Fab
