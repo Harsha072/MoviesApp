@@ -1,32 +1,32 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import MovieDetails from "../components/movieDetails";
-import PageTemplate from "../components/templateMoviePage";
+import SeriesDetails from "../components/seriesDetails";
+import PageTemplate from "../components/templateSeriesPage";
 import useMovie from "../hooks/useMovie";
-import { getMovie,getSimilarMovies } from '../api/tmdb-api'
+import { getSeries,getSimilarSeries } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import MovieList from "../components/movieList";
 
 
 
-const MovieDetailsPage = (props) => {
+const SeriesDetailsPage = (props) => {
  
   const { id } = useParams();
 
   const { data: movie, error, isLoading, isError } = useQuery(
     ["series", { id: id }],
-    get
+    getSeries
   );
 
-  const { data:similarMovie} = useQuery(
-    ["similarMovie", { id: id }],
-    getSimilarMovies
+  const { data:similarSeries} = useQuery(
+    ["similarSeries", { id: id }],
+    getSimilarSeries
   );
 
-  if (similarMovie) {
+  if (movie) {
     // Use the data here
-    console.log("for data ",similarMovie);
+    console.log("for data ",similarSeries);
   } else {
     // Handle the case where the data is not yet available
   }
@@ -45,7 +45,7 @@ const MovieDetailsPage = (props) => {
       {movie ? (
         <>
           <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} similarMovie={similarMovie}
+            <SeriesDetails series={movie} similarSeries={similarSeries}
              action={(movie) => {
               return  
             }} />
@@ -59,4 +59,4 @@ const MovieDetailsPage = (props) => {
   );
 };
 
-export default MovieDetailsPage;
+export default SeriesDetailsPage;

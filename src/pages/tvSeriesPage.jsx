@@ -1,32 +1,37 @@
 import React from "react";
 import PageTemplate from "../components/templateTvSeriesPage";
-import { useQuery } from "react-query";
+import { useQuery, QueryClient, } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
-import {  getPopularTvSeries } from "../api/tmdb-api";
+import { getPopularTvSeries } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
+import SeriesFilterUI from "../components/seriesFilterUI"
 
-import MovieFilterUI, {
-  titleFilter,
-  genreFilter,
-} from "../components/movieFilterUI";
-import { seriesNameFilter } from "../components/seriesFilterUI";
+import { seriesNameFilter, genreFilter } from "../components/seriesFilterUI";
 
 const nameFiltering = {
-    name: "name",
-    value: "",
-    condition: seriesNameFilter,
-  };
-// const genreFiltering = {
-//   name: "genre",
-//   value: "0",
-//   condition: genreFilter,
-// };
-
+  name: "name",
+  value: "",
+  condition: seriesNameFilter,
+};
+const genreFiltering = {
+  name: "genre",
+  value: "0",
+  condition: genreFilter,
+};
+const queryClient = new QueryClient()
 const TvSeriesPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("series", getPopularTvSeries);
-  const { filterValues, setFilterValues, filterFunction } = useFiltering( [], [nameFiltering] );
+  const [page, setPage] = React.useState(1)
+  const { data, error, isLoading, isError, isFetching, isPreviousData } = useQuery(["series", page], getPopularTvSeries, { keepPreviousData: true, staleTime: 5000 });
 
+  const { filterValues, setFilterValues, filterFunction } = useFiltering([], [nameFiltering, genreFiltering]);
+  React.useEffect(() => {
+    if (data?.hasMore) {
+      queryClient.prefetchQuery(['projects', page + 1], () =>
+        getPopularTvSeries(page + 1)
+      )
+    }
+  }, [data, page, queryClient])
   if (isLoading) {
     return <Spinner />;
   }
@@ -44,24 +49,28 @@ const TvSeriesPage = (props) => {
     setFilterValues(updatedFilterSet);
   };
 
-  const movies = data ? data.results : [];
-  console.log("data in tv page ",data)
-  const displayedMovies = filterFunction(movies);
+  const series = data ? data.results : [];
+  console.log("data in tv page ", data)
+  const displayedSeries = filterFunction(series);
 
 
   return (
     <>
-       <PageTemplate
+      <PageTemplate
         title="Popular Series"
-        movies={displayedMovies}
-        action={(movie) => {
-          return <AddToFavouritesIcon movie={movie} />
+        series={displayedSeries}
+        setPage={setPage}
+        page={page}
+        isFetching={isFetching}
+        isPreviousData={isPreviousData}
+        action={(series) => {
+          return <AddToFavouritesIcon movie={series} />
         }}
       />
-      <MovieFilterUI
+      <SeriesFilterUI
         onFilterValuesChange={changeFilterValues}
         nameFilter={filterValues[0].value}
-       
+        genreFilter={filterValues[1].value}
       />
     </>
   );

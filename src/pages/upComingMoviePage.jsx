@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PageTemplate from '../components/templateMovieListPage'
 import { getMovies, getUpcomingMovies } from "../api/tmdb-api";
-import { useQuery } from "react-query";
+import { useQuery, QueryClient, } from "react-query";
 import useFiltering from "../hooks/useFiltering";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
@@ -21,14 +21,23 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
-
+const queryClient = new QueryClient()
 
 const UpcomingMoviePage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("upcoming", getUpcomingMovies);
+  const [page, setPage] = React.useState(1)
+  const { data, error, isLoading, isError,isFetching, isPreviousData } = useQuery(["upcoming",page], getUpcomingMovies, { keepPreviousData: true, staleTime: 5000 });
+  React.useEffect(() => {
+    if (data?.hasMore) {
+      queryClient.prefetchQuery(['projects', page + 1], () =>
+      getUpcomingMovies(page + 1)
+      )
+    }
+  }, [data, page, queryClient])
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
   );
+
 
   if (isLoading) {
     return <Spinner />;
@@ -56,6 +65,10 @@ const UpcomingMoviePage = (props) => {
       <PageTemplate
       title='Upcoming Movies'
       movies={displayedMovies}
+      setPage={setPage}
+      page={page}
+      isFetching={isFetching}
+      isPreviousData={isPreviousData}
        action={(movie) => {
           return 
         }}

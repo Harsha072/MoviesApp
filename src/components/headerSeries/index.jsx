@@ -8,13 +8,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import Avatar from "@mui/material/Avatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-
 const styles = {
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
-
+    
   },
-  root: {
+    root: {  
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
@@ -23,35 +22,36 @@ const styles = {
   },
 };
 
-const MovieHeader = (props) => {
-  const movie = props.movie;
-  
-
+const SeriesHeader = (props) => {
+  console.log("the props ",props)
+  const series = props.series;
+ 
+console.log("series header",series)
   return (
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
-
+        
       </IconButton>
       <Typography>
-        <div>
-
-          {movie && movie.length > 0 && (
-            <Avatar sx={styles.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-          )}
+         <div>
+          
+        {series && series.length > 0 && (
+          <Avatar sx={styles.avatar}>
+            <FavoriteIcon />
+          </Avatar>
+        )}
         </div>
       </Typography>
 
       <Typography variant="h4" component="h3">
-
-        {movie.title}{"   "}
-        <a href={movie.homepage}>
-          <HomeIcon color="primary" fontSize="='large" />
+  
+        {series.name}{"   "}
+        <a href={series.homepage}>
+          <HomeIcon color="primary"  fontSize="='large"/>
         </a>
         <br />
-        <span>{`${movie.tagline}`} </span>
+        <span>{`${series.tagline}`} </span>
       </Typography>
       <IconButton aria-label="go forward">
         <ArrowForwardIcon color="primary" fontSize="large" />
@@ -60,4 +60,4 @@ const MovieHeader = (props) => {
   );
 };
 
-export default MovieHeader;
+export default SeriesHeader;

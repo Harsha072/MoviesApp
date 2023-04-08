@@ -9,13 +9,14 @@ const styles = {
   }
 };
 
-function MovieListPageTemplate({ movies, title, action }) 
+function MovieListPageTemplate({ movies, title, action,setPage,isFetching,isPreviousData,page }) 
   {
     console.log("movies :::")
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
-        <Header title={title} />
+        <Header page={page} isFetching={isFetching}
+        isPreviousData={isPreviousData} setPage={setPage} title={title} />
       </Grid>
       <Grid item container spacing={5}>
         {   <MovieList action={action} movies={movies} />

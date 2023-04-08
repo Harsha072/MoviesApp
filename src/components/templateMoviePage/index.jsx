@@ -3,10 +3,14 @@ import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getMovieImages } from "../../api/tmdb-api";
+import { getMovieCredits, getMovieImages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
-
+import Typography from "@mui/material/Typography";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { Link } from "react-router-dom";
 const styles = {
   gridListRoot: {
     display: "flex",
@@ -21,11 +25,16 @@ const styles = {
 
 const TemplateMoviePage = ({ movie, children }) => {
   // const [images, setImages] = useState([]);
+  const { data:credits } = useQuery(
+    ["credits", { id: movie.id }],
+    getMovieCredits
+  );
   const { data , error, isLoading, isError } = useQuery(
     ["images", { id: movie.id }],
     getMovieImages
   );
 
+  console.log("credits ",credits)
   if (isLoading) {
     return <Spinner />;
   }
@@ -58,6 +67,32 @@ const TemplateMoviePage = ({ movie, children }) => {
       </ImageListItem>
     </ImageList>
   </div> 
+  <br />
+                    <br />
+                    <Typography variant="h5" component="p">
+                        More Info
+                    </Typography>
+                    <Grid container direction="column" spacing={1}>
+                        <List>
+                           
+                           
+                            <ListItem>
+                            <ListItemText primary="Cast " secondary={ credits.cast.map(cast=> cast.name)}/>
+                            </ListItem>
+                            <ListItem>
+                            <ListItemText primary="Production Companies " secondary={movie.production_companies.map(company => company.name).join(", ")}/>
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Origin" secondary={movie.production_countries.length>0 ?movie.production_countries.map(country=>country.name).join(","):"No information"} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Languages Spoken" secondary={movie.spoken_languages.length>0? movie.spoken_languages.map(language=>language.english_name).join(","):"No information"} />
+                            </ListItem>
+                            <ListItem>
+                                {/* <ListItemText primary="Also Known As" secondary={movie.also_known_as.join(", ")} /> */}
+                            </ListItem>
+                        </List>
+                    </Grid> 
 </Grid>
 
 

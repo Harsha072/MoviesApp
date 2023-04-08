@@ -9,16 +9,17 @@ const styles = {
   }
 };
 
-function SeriesListPageTemplate({ movies, title, action }) 
+function SeriesListPageTemplate({ series, title, action,setPage,isFetching,isPreviousData,page }) 
   {
-    console.log("series :::",movies)
+    console.log("series :::",series)
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
-        <Header title={title} />
+        <Header page={page} isFetching={isFetching}
+        isPreviousData={isPreviousData} setPage={setPage} title={title} />
       </Grid>
       <Grid item container spacing={5}>
-        {   <SeriesList action={action} movies={movies} />
+        {   <SeriesList action={action} series={series} />
         /* <MovieList
           selectFavourite={selectFavourite}
           movies={movies}

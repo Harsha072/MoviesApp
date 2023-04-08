@@ -18,18 +18,29 @@ const styles = {
   },
 };
 
-const Header = (props ) => {
-  console.log("header component")
-  const title = props.title
+const Header = ({ title, setPage, page, isFetching, isPreviousData } ) => {
+  console.log("header component",setPage)
+  console.log("header component",isPreviousData)
+
   const movie = JSON.parse(localStorage.getItem("favourites")); 
 console.log("the movie ",movie)
+const handleNextPage = () => {
+  setPage((prevPage) => prevPage + 1);
+};
+const handlePrevPage = () => {
+  setPage((prevPage) => prevPage - 1);
+};
+
   return (
     
     <Paper component="div" sx={styles.root}>
       <IconButton
         aria-label="go back"
+        onClick={handlePrevPage}
+        disabled={page === 1}
+        color="primary" fontSize="large"
       >
-        <ArrowBackIcon color="primary" fontSize="large" />
+        <ArrowBackIcon  />
       </IconButton>
 
       <Typography variant="h4" component="h3">
@@ -38,8 +49,11 @@ console.log("the movie ",movie)
       </Typography>
       <IconButton
         aria-label="go forward"
+        onClick={handleNextPage}
+        disabled={!movie}
+         color="primary" fontSize="large"
       >
-        <ArrowForwardIcon color="primary" fontSize="large" />
+        <ArrowForwardIcon   />
       </IconButton>
     </Paper>
   );

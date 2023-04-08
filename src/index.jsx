@@ -1,6 +1,10 @@
 import React from "react";
+// import './components/login/style.css'
+import { useState, useEffect } from 'react'
+import { supabase } from './supabaseClient'
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
+import Auth from "./components/login/Auth";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // NEW
@@ -15,6 +19,7 @@ import PopularMoviePage from "./pages/popularMoviePage";
 import PopularActorsPage from "./pages/popularActorsPage";
 import ActorDetailsPage from "./pages/actorDetailsPage"
 import TvSeriesPage from "./pages/tvSeriesPage";
+import SeriesDetailsPage from "./pages/seriesDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +35,17 @@ const queryClient = new QueryClient({
 
 
 const App = () => {
+  const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
   return (
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
@@ -45,6 +61,9 @@ const App = () => {
       </ul> */}
       <SiteHeader /> 
       <MoviesContextProvider>     {/* New Header  */}
+      {/* <div className="container" style={{ padding: '50px 0 100px 0' }}>
+      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+    </div> */}
       <Routes>
         <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
         <Route path="/movies/upcoming" element={<UpcomingMoviePage />} />
@@ -52,6 +71,7 @@ const App = () => {
         <Route path="/actors/popular" element={<PopularActorsPage/>} />
         <Route path="/tv/popular" element={<TvSeriesPage/>} />
         <Route path="/movies/:id" element={<MoviePage />} />
+        <Route path="/series/:id" element={<SeriesDetailsPage />} />
         <Route path="/actor/:id" element={<ActorDetailsPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Navigate to="/" />} />

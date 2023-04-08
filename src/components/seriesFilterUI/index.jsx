@@ -7,10 +7,10 @@ export const seriesNameFilter = function (series, value) {
  return series.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
-// export const genreFilter = function (movie, value) {
-//   const genreId = Number(value);
-//   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
-// };
+export const genreFilter = function (series, value) {
+  const genreId = Number(value);
+  return genreId > 0 ? series.genre_ids.includes(genreId) : true;
+};
 
 const styles = {
   root: {
@@ -24,7 +24,7 @@ const styles = {
   },
 };
 
-const SeriesFilterUI = ({ onFilterValuesChange, nameFilter }) => {
+const SeriesFilterUI = ({ onFilterValuesChange, nameFilter,genreFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -45,6 +45,7 @@ const SeriesFilterUI = ({ onFilterValuesChange, nameFilter }) => {
         <FilterCard
           onUserInput={onFilterValuesChange}
           nameFilter={nameFilter}
+          genreFilter={genreFilter}
         />
       </Drawer>
     </>

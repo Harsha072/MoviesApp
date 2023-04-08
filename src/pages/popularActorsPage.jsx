@@ -2,7 +2,7 @@
 
 import React from "react";
 import ActorsListPageTemplate from '../components/templateActorListPage'
-import { useQuery } from "react-query";
+import { useQuery, QueryClient, } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import { getMovies,getActors } from "../api/tmdb-api";
@@ -19,10 +19,18 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
-
+const queryClient = new QueryClient()
 const PopularActorsPage = (props) => {
-    const { data, error, isLoading, isError } = useQuery("actors", getActors);
+  const [page, setPage] = React.useState(1)
+  const { data, error, isLoading, isError,isFetching, isPreviousData } = useQuery(["actors",page], getActors, { keepPreviousData: true, staleTime: 5000 });
      const { filterValues, setFilterValues, filterFunction } = useFiltering( [], [nameFiltering,genreFiltering] );
+     React.useEffect(() => {
+      if (data?.hasMore) {
+        queryClient.prefetchQuery(['projects', page + 1], () =>
+        getActors(page + 1)
+        )
+      }
+    }, [data, page, queryClient])
      console.log("filter values ",filterValues)
      console.log("filter function ",filterFunction)
   
@@ -33,7 +41,7 @@ const PopularActorsPage = (props) => {
     if (isError) {
       return <h1>{error.message}</h1>;
     }
-  
+   
     const changeFilterValues = (type, value) => {
       console.log("change filter value ",type)
       const changedFilter = { name: type, value: value };
@@ -54,6 +62,10 @@ const PopularActorsPage = (props) => {
          <ActorsListPageTemplate
           title="Popular Actors"
           movies={displayedMovies}
+          setPage={setPage}
+          page={page}
+          isFetching={isFetching}
+          isPreviousData={isPreviousData}
           action={(movie) => {
             return <AddToFavouritesIcon movie={movie} />
           }}

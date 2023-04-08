@@ -2,7 +2,7 @@
 
 import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
-import { useQuery } from "react-query";
+import { useQuery, QueryClient, } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import { getMovies } from "../api/tmdb-api";
@@ -12,7 +12,7 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/movieFilterUI";
-
+const queryClient = new QueryClient()
 const titleFiltering = {
   name: "title",
   value: "",
@@ -25,9 +25,16 @@ const genreFiltering = {
 };
 
 const HomePage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
+  const [page, setPage] = React.useState(1)
+  const { data, error, isLoading, isError,isFetching, isPreviousData } = useQuery(["discover",page], getMovies, { keepPreviousData: true, staleTime: 5000 });
   const { filterValues, setFilterValues, filterFunction } = useFiltering( [], [titleFiltering, genreFiltering] );
-
+  React.useEffect(() => {
+    if (data?.hasMore) {
+      queryClient.prefetchQuery(['projects', page + 1], () =>
+      getMovies(page + 1)
+      )
+    }
+  }, [data, page, queryClient])
   if (isLoading) {
     return <Spinner />;
   }
@@ -46,7 +53,7 @@ const HomePage = (props) => {
   };
 
   const movies = data ? data.results : [];
-  console.log("data in home page ",data)
+  console.log("data in home page ",page)
   const displayedMovies = filterFunction(movies);
 
 
@@ -55,6 +62,10 @@ const HomePage = (props) => {
        <PageTemplate
         title="Discover Movies"
         movies={displayedMovies}
+        setPage={setPage}
+        page={page}
+        isFetching={isFetching}
+        isPreviousData={isPreviousData}
         action={(movie) => {
           return <AddToFavouritesIcon movie={movie} />
         }}

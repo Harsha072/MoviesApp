@@ -26,32 +26,21 @@ const styles = {
   },
 };
 
-export default function SeriesCard({ movie, action }) 
+export default function SeriesCard({ series, action }) 
   {
-    console.log("series ",movie)
+    console.log("series ",series)
   const { favourites, addToFavourites } = useContext(MoviesContext);
 
-  if (favourites.find((id) => id === movie.id)) {
-    movie.favourite = true;
-  } else {
-    movie.favourite = false
-  }
   
 
   return (
     <Card sx={styles.card}>
        <CardHeader
       sx={styles.header}
-      avatar={
-        movie.favourite ? (
-          <Avatar sx={styles.avatar}>
-            <FavoriteIcon />
-          </Avatar>
-        ) : null
-      }
+      
       title={
         <Typography variant="h5" component="p">
-          {movie.name}{" "}
+          {series.name}{" "}
         </Typography>
       }
     />
@@ -59,8 +48,8 @@ export default function SeriesCard({ movie, action })
       <CardMedia
         sx={styles.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          series.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${series.poster_path}`
             : img
         }
       />
@@ -69,22 +58,22 @@ export default function SeriesCard({ movie, action })
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.first_air_date}
+              {series.first_air_date}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average
+              {"  "} {series.vote_average
 }{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-      {action(movie)}
+      {action(series)}
       
-      <Link to={`/movies/${movie.id}`}>
+      <Link to={`/series/${series.id}`}>
   <div style={{ display: "flex", alignItems: "center" }}>
     <PlaylistAddIcon style={{ marginRight: "8px" }} />
     <Button variant="outlined" size="medium" color="primary">
