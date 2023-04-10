@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 360000,
-      refetchInterval: 360000, 
+      refetchInterval: 360000,
       refetchOnWindowFocus: false
     },
   },
@@ -48,10 +48,10 @@ const App = () => {
   }, [])
   return (
     <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-    <SiteHeader />
+      <BrowserRouter>
 
-      {/* <ul>
+
+        {/* <ul>
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -59,28 +59,43 @@ const App = () => {
           <Link to="/movies/favourites">Favourites</Link>
         </li>
       </ul> */}
-      <SiteHeader /> 
-      <MoviesContextProvider>     {/* New Header  */}
-      {/* <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
-    </div> */}
-      <Routes>
-        <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
-        <Route path="/movies/upcoming" element={<UpcomingMoviePage />} />
-        <Route path="/movies/popular" element={<PopularMoviePage />} />
-        <Route path="/actors/popular" element={<PopularActorsPage/>} />
-        <Route path="/tv/popular" element={<TvSeriesPage/>} />
-        <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/series/:id" element={<SeriesDetailsPage />} />
-        <Route path="/actor/:id" element={<ActorDetailsPage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-        <Route path="/reviews/:id" element={<MovieReviewPage/>} />\
-        <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
-      </Routes>
-      </MoviesContextProvider> 
-    </BrowserRouter>
-    <ReactQueryDevtools initialIsOpen={false} />
+        <SiteHeader />
+        <MoviesContextProvider>     {/* New Header  */}
+
+          {session && (
+            <>
+              <SiteHeader session={session} />
+              <Routes>
+                <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
+                <Route path="/movies/upcoming" element={<UpcomingMoviePage />} />
+                <Route path="/movies/popular" element={<PopularMoviePage />} />
+                <Route path="/actors/popular" element={<PopularActorsPage />} />
+                <Route path="/tv/popular" element={<TvSeriesPage />} />
+                <Route path="/movies/:id" element={<MoviePage />} />
+                <Route path="/series/:id" element={<SeriesDetailsPage />} />
+                <Route path="/actor/:id" element={<ActorDetailsPage />} />
+                <Route path="/" element={<HomePage key={session.user.id} session={session} />} />
+                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/reviews/:id" element={<MovieReviewPage />} />
+                <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+              </Routes>
+            </>
+          )}
+          {!session && (
+            <>
+             <Auth></Auth>
+            </>
+          )}
+
+
+
+
+
+
+
+        </MoviesContextProvider>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

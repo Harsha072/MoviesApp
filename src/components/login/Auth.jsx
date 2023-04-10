@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../../supabaseClient'
 import '../login/style.css'
 
-const styles={
-    
-}
+
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
@@ -26,9 +24,10 @@ export default function Auth() {
   return (
     <div className="row flex flex-center">
       <div className="col-6 form-widget">
-        <h1 className="header">Supabase + React</h1>
-        <p className="description">Sign in via magic link with your email below</p>
+        <h1 className="header">Welcome to the TMDB App</h1>
+        <p className="description">Please Sign in via magic link with your email below</p>
         <form className="form-widget" onSubmit={handleLogin}>
+          <div className='form'>
           <div>
             <input
               className="inputField"
@@ -43,6 +42,7 @@ export default function Auth() {
             <button className={'button block'} disabled={loading}>
               {loading ? <span>Loading</span> : <span>Send magic link</span>}
             </button>
+          </div>
           </div>
         </form>
       </div>

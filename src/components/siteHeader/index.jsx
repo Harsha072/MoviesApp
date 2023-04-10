@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
+import { supabase } from "../../supabaseClient";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
@@ -26,12 +26,12 @@ const styles = {
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = () => {
+const SiteHeader = ({session}) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   // const [selectedOption, setSelectedOption] = useState(null);
-
+console.log("the session",session)
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -48,6 +48,8 @@ const SiteHeader = () => {
         { label: "Movies", path: "/movies/popular" },
       ],
     },
+    { label: "Sign out", path: "/signout" },
+
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -55,7 +57,10 @@ const SiteHeader = () => {
     if (pageURL.subMenu) {
       setOpenSubMenu(true);
       handleMenuClose()
-    } else {
+    }else if(pageURL==='/signout') {
+      supabase.auth.signOut()
+    } 
+    else {
       navigate(pageURL);
       handleMenuClose()
     }
@@ -86,7 +91,10 @@ const SiteHeader = () => {
           <Typography variant="h6" sx={styles.title}>
             All you ever wanted to know about Movies!
           </Typography>
-          {isMobile ? (
+          {
+            session ? (
+              <>
+              {isMobile ? (
             <>
               <IconButton
                 aria-label="menu"
@@ -192,6 +200,14 @@ const SiteHeader = () => {
               ))}
             </>
           )}
+              </>
+            ):(
+              <>
+            
+              </>
+            )
+          }
+          
         </Toolbar>
       </AppBar>
       <Offset />
