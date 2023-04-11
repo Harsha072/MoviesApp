@@ -8,7 +8,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, { seriesNameFilter } from "../components/seriesFilterUI";
 import RemoveFromFavourites from "../components/cardIconsSeries/removeFromFavourites";
 import WriteReview from "../components/cardIconsSeries/writeReview";
-
+import EmptyMovieList from "./emptyListPage";
 
 const nameFiltering = {
   name: "name",
@@ -69,7 +69,11 @@ console.log("series un fav::: ",movieIds)
 
   return (
     <>
-           <PageTemplate
+    {displayMovies.length === 0 ? (
+        <EmptyMovieList></EmptyMovieList>
+      ) : (
+        <>
+          <PageTemplate
         title="Favourite Series"
         movies={displayMovies}
         action={(movie) => {
@@ -86,7 +90,10 @@ console.log("series un fav::: ",movieIds)
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
-      />
+      /> 
+        </>
+      )}
+          
     </>
   );
 };
