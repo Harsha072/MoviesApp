@@ -32,7 +32,7 @@ const styles = {
 export default function FilterMoviesCard(props) {
   // const [genres, setGenres] = useState([{ id: '0', name: "All" }])
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
-
+console.log("movie filter UI ",props)
   if (isLoading) {
     return <Spinner />;
   }
@@ -56,7 +56,9 @@ export default function FilterMoviesCard(props) {
   const handleGenreChange = (e) => {
     handleUserImput(e, "genre", e.target.value);
   };
-
+  const handleRateChange = (e) => {
+    handleUserImput(e, "rating", e.target.value);
+  };
 
   // useEffect(() => {
   //   getGenres().then((allGenres) => {
@@ -115,6 +117,22 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
+        <FormControl sx={styles.formControl}>
+  <InputLabel id="rating-label">Ratings</InputLabel>
+  <Select
+    labelId="rating-label"
+    id="rating-select"
+    value={props.rateFilter}
+    onChange={handleRateChange}
+  >
+    <MenuItem value={0}>All Ratings</MenuItem>
+    {[...Array(10)].map((_, i) => (
+      <MenuItem key={i + 1} value={i + 1}>
+        {i + 1}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
       </CardContent>
     </Card>
     <Card sx={styles.root} variant="outlined">

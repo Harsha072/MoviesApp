@@ -12,6 +12,14 @@ export const genreFilter = function (movie, value) {
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;
 };
 
+export const rateFilter = function (movie, value) {
+  console.log(movie.vote_average,"value ",value)
+  if (value === 0) {
+    return true; // if the filter value is 0, return all movies
+  }
+ 
+  return movie.vote_average >= value; // return movies with a rating greater than or equal to the filter value
+};
 const styles = {
   root: {
     backgroundColor: "#bfbfbf",
@@ -24,9 +32,9 @@ const styles = {
   },
 };
 
-const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const MovieFilterUI = ({ onFilterValuesChange, titleFilter, genreFilter,rateFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-console.log("title- ",titleFilter," genre- ",genreFilter)
+console.log(genreFilter,"rate ",rateFilter)
   return (
     <>
       <Fab
@@ -46,6 +54,7 @@ console.log("title- ",titleFilter," genre- ",genreFilter)
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+          rateFilter={rateFilter}
         />
       </Drawer>
     </>

@@ -21,7 +21,7 @@ console.log("filtering conditions ",filteringConditions)
     filteringConditions.reduce((data, conditionFn, index) => {
     
       return data.filter((item) => {
-       
+           
           return conditionFn(item, filterValues[index].value);
       });
    
