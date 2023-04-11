@@ -11,7 +11,7 @@ const styles = {
 
 function MovieListPageTemplate({ movies, title, action,setPage,isFetching,isPreviousData,page }) 
   {
-    console.log("movies :::")
+ 
   return (
     <Grid container sx={styles.root}>
       <Grid item xs={12}>

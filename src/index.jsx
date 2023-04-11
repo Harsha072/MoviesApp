@@ -7,7 +7,8 @@ import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
 import Auth from "./components/login/Auth";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
-import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // NEW
+import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
+import FavouriteSeriesPage from "./pages/favouriteSeriesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
 import UpcomingMoviePage from "./pages/upComingMoviePage";
@@ -15,6 +16,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
+import AddSeriesReviewPage from './pages/addSeriesReviewPage'
 import PopularMoviePage from "./pages/popularMoviePage";
 import PopularActorsPage from "./pages/popularActorsPage";
 import ActorDetailsPage from "./pages/actorDetailsPage"
@@ -66,7 +68,8 @@ const App = () => {
             <>
               <SiteHeader session={session} />
               <Routes>
-                <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
+                <Route path="/movies/favourite" element={<FavouriteMoviesPage />} />
+                <Route path="/series/favourite" element={<FavouriteSeriesPage />} />
                 <Route path="/movies/upcoming" element={<UpcomingMoviePage />} />
                 <Route path="/movies/popular" element={<PopularMoviePage />} />
                 <Route path="/actors/popular" element={<PopularActorsPage />} />
@@ -78,6 +81,7 @@ const App = () => {
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path="/reviews/:id" element={<MovieReviewPage />} />
                 <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+                <Route path="/reviewsSeries/form" element={<AddSeriesReviewPage />} />
               </Routes>
             </>
           )}

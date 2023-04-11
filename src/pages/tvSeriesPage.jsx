@@ -2,7 +2,7 @@ import React from "react";
 import PageTemplate from "../components/templateTvSeriesPage";
 import { useQuery, QueryClient, } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
+import AddToFavouritesIcon from '../components/cardIconsSeries/addToFavourites';
 import { getPopularTvSeries } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 import SeriesFilterUI from "../components/seriesFilterUI"

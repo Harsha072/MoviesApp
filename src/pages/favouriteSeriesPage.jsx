@@ -2,18 +2,18 @@ import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+import { getSeries } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, { titleFilter } from "../components/movieFilterUI";
-import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
-import WriteReview from "../components/cardIcons/writeReview";
+import MovieFilterUI, { seriesNameFilter } from "../components/seriesFilterUI";
+import RemoveFromFavourites from "../components/cardIconsSeries/removeFromFavourites";
+import WriteReview from "../components/cardIconsSeries/writeReview";
 
 
-const titleFiltering = {
-  name: "title",
+const nameFiltering = {
+  name: "name",
   value: "",
-  condition: titleFilter,
+  condition: seriesNameFilter,
 };
 export const genreFiltering = {
   name: "genre",
@@ -27,20 +27,20 @@ export const genreFiltering = {
   },
 };
 
-const FavouriteMoviesPage = () => {
-  const { favourites: movieIds } = useContext(MoviesContext);
+const FavouriteSeriesPage = () => {
+  const { favouritesSeries: movieIds } = useContext(MoviesContext);
  
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [nameFiltering, genreFiltering]
   );
-console.log("movie un fav::: ",movieIds)
+console.log("series un fav::: ",movieIds)
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
-        queryKey: ["movie", { id: movieId }],
-        queryFn: getMovie,
+        queryKey: ["series", { id: movieId }],
+        queryFn: getSeries,
       };
     })
   );
@@ -70,7 +70,7 @@ console.log("movie un fav::: ",movieIds)
   return (
     <>
            <PageTemplate
-        title="Favourite Movies"
+        title="Favourite Series"
         movies={displayMovies}
         action={(movie) => {
           return (
@@ -91,4 +91,4 @@ console.log("movie un fav::: ",movieIds)
   );
 };
 
-export default FavouriteMoviesPage;
+export default FavouriteSeriesPage;

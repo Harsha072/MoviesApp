@@ -14,6 +14,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 
+
 const styles = {
   title: {
     flexGrow: 1,
@@ -31,14 +32,15 @@ const SiteHeader = ({session}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   // const [selectedOption, setSelectedOption] = useState(null);
-console.log("the session",session)
+
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favourites" },
+    { label: "Favorite Movies", path: "/movies/favourite" },
+  
     { label: "Upcoming movies", path: "/movies/upcoming" },
     {
       label: "Popular",
@@ -48,8 +50,8 @@ console.log("the session",session)
         { label: "Movies", path: "/movies/popular" },
       ],
     },
+    { label: "Favorite Series", path: "/series/favourite" },
     { label: "Sign out", path: "/signout" },
-
   ];
 
   const handleMenuSelect = (pageURL) => {

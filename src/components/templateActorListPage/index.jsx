@@ -11,7 +11,7 @@ const styles = {
 
 function ActorsListPageTemplate({ movies, title, action,setPage,isFetching,isPreviousData,page}) 
   {
-    console.log("movies :::",movies)
+    console.log("movies :::",action)
     
   return (
     <Grid container sx={styles.root}>

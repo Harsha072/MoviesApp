@@ -41,6 +41,14 @@ export default function ActorCard({ movie, action })
   {
   const context = useContext(MoviesContext);
  
+  const { favouritesActor, addToFavourites } = useContext(MoviesContext);
+
+  // if (favouritesActor.find((id) => id === movie.id)) {
+  //   movie.favourite = true;
+  // } else {
+  //   movie.favourite = false
+  // }
+  
 
   const handleSetKnownFor = (actor) => {
     context.setKnown(actor);
@@ -78,7 +86,7 @@ export default function ActorCard({ movie, action })
           </Grid>
         </Grid>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions onClick={() => handleSetKnownFor(movie)}  disableSpacing>
       {action(movie)}
       
       <Link to={`/actor/${movie.id}`}>

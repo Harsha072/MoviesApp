@@ -4,6 +4,7 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 
 export const nameFilter = function (actors, value) {
+  console.log(actors)
  return actors.name.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
@@ -14,6 +15,7 @@ export const genreFilter = function (actors, value) {
   
 };
 export const genreFilter2 = function (actor, value) {
+  console.log("actor ",actor)
   const genreId = Number(value);
   console.log("value ",value)
   const hasGenreMovie = actor.known_for.find(movie => {

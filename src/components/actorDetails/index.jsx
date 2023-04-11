@@ -59,7 +59,7 @@ console.log("in detlkjlfd ",credits.movie.known_for)
             <br />
             <Paper component="ul" sx={styles.chipSet}>
       <Typography variant="h5" component="h3">
-         Known for
+         Known for these movies
       </Typography>
       </Paper>
       <br />

@@ -7,6 +7,7 @@ import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import { getMovies,getActors } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
+
 import {nameFilter,genreFilter} from '../components/actorFilterUI';
 import ActorFilterUI from "../components/actorFilterUI";
 const nameFiltering = {
@@ -55,6 +56,9 @@ const PopularActorsPage = (props) => {
   
     const movies = data ? data.results : [];
     const displayedMovies = filterFunction(movies);
+    displayedMovies.forEach(element => {
+      element.favourite=false
+    });
   console.log("end",displayedMovies)
   
     return (
