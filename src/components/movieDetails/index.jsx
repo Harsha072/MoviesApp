@@ -35,7 +35,7 @@ const styles = {
 
 const MovieDetails = ( {movie,similarMovie,action}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
-  console.log(similarMovie.results,"indetails page ")
+
   console.log(action,"indetails page ")
   return (
     <>

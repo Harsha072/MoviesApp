@@ -29,6 +29,8 @@ export const genreFiltering = {
 
 const FavouriteMoviesPage = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
+  const { myReviews: review } = useContext(MoviesContext);
+  console.log("reivew in fav page ",review)
  
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],

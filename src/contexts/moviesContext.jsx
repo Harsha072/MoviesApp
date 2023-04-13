@@ -41,7 +41,9 @@ const [knowFor, setKnownFor] = useState( {} )
   const removeFromFavourites = (movie) => {
     setFavourites(favourites.filter((mId) => mId !== movie.id));
   };
-  const addReview = (movie, review) => {   // NEW
+  const addReview = (movie, review) => {  
+     // NEW
+     console.log("got reive context ",)
     setMyReviews( {...myReviews, [movie.id]: review } )
   };
 
@@ -59,6 +61,7 @@ const [knowFor, setKnownFor] = useState( {} )
         favourites,
         favouritesSeries,
         knowFor,
+        myReviews,
         addToFavourites,
         addToFavouritesSeies,
         removeFromFavourites,

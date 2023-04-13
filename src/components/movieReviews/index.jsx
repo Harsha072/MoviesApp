@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useContext, useEffect, useState }  from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
+import { MoviesContext } from "../../contexts/moviesContext";
 
 const styles = {
   table: {
@@ -18,14 +19,17 @@ const styles = {
 
 export default function MovieReviews({ movie }) {
   const [reviews, setReviews] = useState([]);
-
+  const { myReviews:review}=useContext(MoviesContext)
+  console.log(movie.id)
+  console.log(review[movie.id].author)
+  console.log("api ", reviews)
   useEffect(() => {
     getMovieReviews(movie.id).then((reviews) => {
       setReviews(reviews);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log("got myReviews", review)
   return (
     <TableContainer component={Paper}>
       <Table sx={styles.table} aria-label="reviews table">
@@ -37,17 +41,17 @@ export default function MovieReviews({ movie }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {reviews.map((r) => (
-            <TableRow key={r.id}>
+         
+            <TableRow key={movie.id}>
               <TableCell component="th" scope="row">
-                {r.author}
+                {review[movie.id].author}
               </TableCell>
-              <TableCell >{excerpt(r.content)}</TableCell>
+              <TableCell >{excerpt(review[movie.id].review)}</TableCell>
               <TableCell >
                             <Link
-                  to={`/reviews/${r.id}`}
+                  to={`/reviews/${review[movie.id]}`}
                   state={{
-                      review: r,
+                      review: review[movie.id],
                       movie: movie,
                   }}
                 >
@@ -55,7 +59,7 @@ export default function MovieReviews({ movie }) {
                 </Link>
               </TableCell>
             </TableRow>
-          ))}
+        
         </TableBody>
       </Table>
     </TableContainer>

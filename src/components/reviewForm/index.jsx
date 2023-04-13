@@ -38,7 +38,7 @@ const ReviewForm = ({ movie }) => {
   };
   const handleSnackClose = (event) => {
     setOpen(false);
-    navigate("/movies/favourites");
+    navigate("/movies/favourite");
   };
 
   const onSubmit = (review) => {
