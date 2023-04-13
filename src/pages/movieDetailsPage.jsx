@@ -12,6 +12,7 @@ import MovieList from "../components/movieList";
 
 
 const MovieDetailsPage = (props) => {
+  console.log("in movies detail page")
   const { myReviews: review } = useContext(MoviesContext);
 
   const { id } = useParams();
@@ -25,7 +26,7 @@ const MovieDetailsPage = (props) => {
     ["similarMovie", { id: id }],
     getSimilarMovies
   );
-
+console.log("got similar ",similarMovie)
   if (similarMovie) {
     // Use the data here
     console.log("for data ",similarMovie);

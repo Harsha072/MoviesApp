@@ -57,6 +57,7 @@ export const getSimilarMovies = (args) => {
     if (!response.ok) {
       throw new Error(response.json().message);
     }
+    console.log("similar response ",response)
     return response.json();
   })
   .catch((error) => {
