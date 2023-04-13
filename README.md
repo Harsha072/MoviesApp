@@ -30,7 +30,7 @@ e.g.
 
 > Lists movies from the Upcoming movies endpoint of TMDB
 
-[image1]: ./images/upcoming_movies.jpg
+![][upcoming_movies]
 
 #### Movies Reviews feature.
 
