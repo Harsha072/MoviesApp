@@ -88,3 +88,4 @@ Username: test1 ; Password: pass1
 [image4]: ./images/image4.png
 [image5]: ./images/image5.png
 [upcoming_movies]: ./images/upcoming_movies.jpg
+[reviews]: ./images/

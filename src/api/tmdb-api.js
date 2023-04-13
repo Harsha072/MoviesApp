@@ -50,6 +50,7 @@ export const getSimilarMovies = (args) => {
   console.log("calling similar",args)
   const [, idPart] = args.queryKey;
   const { id } = idPart;
+  console.log("the id ",id)
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
   ).then((response) => {

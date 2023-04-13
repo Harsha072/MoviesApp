@@ -32,6 +32,7 @@ const MovieDetailsPage = (props) => {
     console.log("reviews in details page ",review)
   } else {
     // Handle the case where the data is not yet available
+   
   }
   if (isLoading) {
     return <Spinner />;

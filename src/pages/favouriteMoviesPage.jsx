@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+
+import { getMovie,getSimilarMovies } from '../api/tmdb-api'
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, { titleFilter } from "../components/movieFilterUI";
@@ -43,6 +44,14 @@ console.log("movie un fav::: ",movieIds)
       return {
         queryKey: ["movie", { id: movieId }],
         queryFn: getMovie,
+      };
+    })
+  );
+  const favouriteMovieSimilarQueries = useQueries(
+    movieIds.map((movieId) => {
+      return {
+        queryKey: ["similarmovie", { id: movieId }],
+        queryFn: getSimilarMovies,
       };
     })
   );
