@@ -22,7 +22,7 @@ const MovieDetailsPage = (props) => {
     getMovie
   );
 
-  const { data:credits } = useQuery(
+  const { data:credits,similarerror, isSimilarLoading, isSimilarError  } = useQuery(
     ["credits", { id: id }],
     getMovieCredits
   );
@@ -31,6 +31,7 @@ const MovieDetailsPage = (props) => {
     getSimilarMovies
   );
 console.log("got similar ",similarMovie)
+console.log("similar is still loading ",isSimilarLoading)
 console.log("credits in detail page ",credits)
   if (similarMovie) {
     // Use the data here
