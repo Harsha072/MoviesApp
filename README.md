@@ -182,18 +182,10 @@ All protected routes
 
 ## Deployment 
 
-[ Specify the URL of your deployed app and include a screenshot(s) from your deployment platform (e.g. Vercal) account that verifies its use for this app. Have a preregistered user for your app and specify their credentials.
+url: https://lab-movies-app-jrxc.vercel.app
+Any valid email can login 
 
-Username: test1 ; Password: pass1
-]
 
-## Persistence (if relevant).
-
-[ If you are persisting data to the Supabase backend, e.g. favourite movies, fantasy movie, include screenshots with appropriate captions to verify this aspect. ]
-
-## Additional Information.
-
-[ Briefly explain any other aspects of your app's design or implementation that is non-standard and worthy of mention.]
 
 
 [upcoming_movies]: ./images/upcoming_movies.jpg
