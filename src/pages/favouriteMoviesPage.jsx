@@ -47,14 +47,7 @@ console.log("movie un fav::: ",movieIds)
       };
     })
   );
-  const favouriteMovieSimilarQueries = useQueries(
-    movieIds.map((movieId) => {
-      return {
-        queryKey: ["similarmovie", { id: movieId }],
-        queryFn: getSimilarMovies,
-      };
-    })
-  );
+ 
   // Check if any of the parallel queries is still loading.
   const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
 

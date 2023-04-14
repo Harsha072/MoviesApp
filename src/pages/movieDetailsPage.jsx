@@ -23,7 +23,7 @@ const MovieDetailsPage = (props) => {
   );
 
   const { data:similarMovie} = useQuery(
-    ["similarMovie", { id: id }],
+    ["favsimilarMovie", { id: id }],
     getSimilarMovies
   );
 console.log("got similar ",similarMovie)

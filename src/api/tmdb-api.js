@@ -55,6 +55,7 @@ export const getSimilarMovies = (args) => {
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
   ).then((response) => {
     if (!response.ok) {
+      console.log("eroooo")
       throw new Error(response.json().message);
     }
     console.log("similar response ",response)
