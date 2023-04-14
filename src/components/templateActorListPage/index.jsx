@@ -17,7 +17,7 @@ function ActorsListPageTemplate({ movies, title, action,setPage,isFetching,isPre
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
         <Header page={page} isFetching={isFetching}
-        isPreviousData={isPreviousData} setPage={setPage} title={title} />
+        isPreviousData={isPreviousData} setPage={setPage} title={title} movies={movies} />
       </Grid>
       <Grid item container spacing={5}>
         {   <ActorsList action={action} movies={movies} />

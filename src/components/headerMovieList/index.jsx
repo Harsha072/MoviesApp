@@ -18,12 +18,12 @@ const styles = {
   },
 };
 
-const Header = ({ title, setPage, page, isFetching, isPreviousData } ) => {
-  console.log("header component",setPage)
+const Header = ({ title, setPage, page, isFetching, isPreviousData,movies } ) => {
+  console.log("header new component",setPage)
   console.log("header component",isPreviousData)
 
-  const movie = JSON.parse(localStorage.getItem("favourites")); 
-console.log("the movie ",movie)
+ 
+console.log("the movie ",movies)
 const handleNextPage = () => {
   setPage((prevPage) => prevPage + 1);
 };
@@ -50,7 +50,7 @@ const handlePrevPage = () => {
       <IconButton
         aria-label="go forward"
         onClick={handleNextPage}
-        disabled={!movie}
+        disabled={!movies}
          color="primary" fontSize="large"
       >
         <ArrowForwardIcon   />

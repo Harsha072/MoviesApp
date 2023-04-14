@@ -16,7 +16,7 @@ function SeriesListPageTemplate({ series, title, action,setPage,isFetching,isPre
     <Grid container sx={styles.root}>
       <Grid item xs={12}>
         <Header page={page} isFetching={isFetching}
-        isPreviousData={isPreviousData} setPage={setPage} title={title} />
+        isPreviousData={isPreviousData} setPage={setPage} title={title} movies={series} />
       </Grid>
       <Grid item container spacing={5}>
         {   <SeriesList action={action} series={series} />

@@ -24,7 +24,7 @@ const styles = {
 
 const ActorHeader = (props) => {
   const movie = props.movie;
-  const movies = JSON.parse(localStorage.getItem("favourites"));
+
 console.log("movie header",props.movie)
   return (
     <Paper component="div" sx={styles.root}>
