@@ -4,7 +4,7 @@ import MovieDetails from "../components/movieDetails";
 import { MoviesContext } from "../contexts/moviesContext";
 import PageTemplate from "../components/templateMoviePage";
 import useMovie from "../hooks/useMovie";
-import { getMovie,getSimilarMovies } from '../api/tmdb-api'
+import { getMovie,getSimilarMovies,getMovieCredits } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import MovieList from "../components/movieList";
@@ -22,11 +22,16 @@ const MovieDetailsPage = (props) => {
     getMovie
   );
 
+  const { data:credits } = useQuery(
+    ["credits", { id: id }],
+    getMovieCredits
+  );
   const { data:similarMovie} = useQuery(
     ["favsimilarMovie", { id: id }],
     getSimilarMovies
   );
 console.log("got similar ",similarMovie)
+console.log("credits in detail page ",credits)
   if (similarMovie) {
     // Use the data here
     console.log("for data ",similarMovie);
@@ -49,8 +54,8 @@ console.log("got similar ",similarMovie)
     <>
       {movie ? (
         <>
-          <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} similarMovie={similarMovie}
+          <PageTemplate movie={movie} credits={credits}>
+            <MovieDetails movie={movie} similarMovie={similarMovie} credits={credits}
              action={(movie) => {
               return  
             }} />

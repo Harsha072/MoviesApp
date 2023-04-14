@@ -33,7 +33,7 @@ const styles = {
   },
 };
 
-const MovieDetails = ( {movie,similarMovie,action}) => {
+const MovieDetails = ( {movie,similarMovie,action, credits}) => {
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
   console.log(action,"indetails page ")

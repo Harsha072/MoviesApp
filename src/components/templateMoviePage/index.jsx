@@ -23,12 +23,9 @@ const styles = {
   },
 };
 
-const TemplateMoviePage = ({ movie, children }) => {
+const TemplateMoviePage = ({ movie, children,credits }) => {
   // const [images, setImages] = useState([]);
-  const { data:credits } = useQuery(
-    ["credits", { id: movie.id }],
-    getMovieCredits
-  );
+ 
   const { data , error, isLoading, isError } = useQuery(
     ["images", { id: movie.id }],
     getMovieImages
