@@ -19,23 +19,25 @@ const SeriesDetailsPage = (props) => {
     getSeries
   );
 
-  const { data:similarSeries} = useQuery(
+  const { data:similarSeries, error:similarerror, isLoading: isSimilarLoading,isError:isSimilarError} = useQuery(
     ["similarSeries", { id: id }],
     getSimilarSeries
   );
+
+  if (isLoading || isSimilarLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+
 
   if (movie) {
     // Use the data here
     console.log("for data ",similarSeries);
   } else {
     // Handle the case where the data is not yet available
-  }
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  if (isError) {
-    return <h1>{error.message}</h1>;
   }
 
 
