@@ -17,18 +17,18 @@ const styles = {
   },
 };
 
-export default function MovieReviews({ movie }) {
-  const [reviews, setReviews] = useState([]);
+export default function MovieReviews({ movie,credits }) {
+  // const [reviews, setReviews] = useState([]);
   const { myReviews:review}=useContext(MoviesContext)
-  console.log(movie.id)
+  console.log("moveis review page ",movie.id)
   console.log(review[movie.id].author)
-  console.log("api ", reviews)
-  useEffect(() => {
-    getMovieReviews(movie.id).then((reviews) => {
-      setReviews(reviews);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+ 
+  // useEffect(() => {
+  //   getMovieReviews(movie.id).then((reviews) => {
+  //     setReviews(reviews);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   console.log("got myReviews", review)
   return (
     <TableContainer component={Paper}>
@@ -53,6 +53,7 @@ export default function MovieReviews({ movie }) {
                   state={{
                       review: review[movie.id],
                       movie: movie,
+                      credits: credits
                   }}
                 >
                   Full Review

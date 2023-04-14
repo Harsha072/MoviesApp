@@ -29,7 +29,7 @@ const WriteReviewPage = (props) => {
   }
   return (
     <PageTemplate movie={movie} credits={credits}>
-      <ReviewForm movie={movie} />
+      <ReviewForm movie={movie}  credits={credits} />
     </PageTemplate>
   );
 };

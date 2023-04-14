@@ -13,7 +13,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 
-const ReviewForm = ({ movie }) => {
+const ReviewForm = ({ movie ,credits }) => {
   const defaultValues = {
     author: "",
     review: "",
