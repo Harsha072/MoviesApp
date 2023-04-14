@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import PageTemplate from "../components/templateMovieListPage";
+import PageTemplate from "../components/templateTvSeriesPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getSeries } from "../api/tmdb-api";
@@ -75,7 +75,7 @@ console.log("series un fav::: ",movieIds)
         <>
           <PageTemplate
         title="Favourite Series"
-        movies={displayMovies}
+        series={displayMovies}
         action={(movie) => {
           return (
             <>
