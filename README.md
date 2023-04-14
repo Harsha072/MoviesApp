@@ -202,7 +202,7 @@ Username: test1 ; Password: pass1
 [popularactors]: ./images/popular_Actors.jpg
 [popularmovies]: ./images/popular_movies.jpg
 [popularseries]: ./images/popular_series.jpg
-[moviesdetail]: ./images/popular_movies.jpg
+[moviesdetail]: ./images/movies_detail_Page.jpg
 [similarmovies]: ./images/similar_movies.jpg
 [similarseries]: ./images/similar_series.jpg
 [filter]: ./images/additional_filter.jpg
