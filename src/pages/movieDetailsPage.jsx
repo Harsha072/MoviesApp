@@ -22,14 +22,18 @@ const MovieDetailsPage = (props) => {
     getMovie
   );
 
-  const { data:credits,similarerror, isSimilarLoading, isSimilarError  } = useQuery(
+  const { data:credits,error:creditserror, isLoading:creditsLoading, isError:creditsError  } = useQuery(
     ["credits", { id: id }],
     getMovieCredits
   );
-  const { data:similarMovie} = useQuery(
+  const { data:similarMovie, error:similarerror, isLoading:isSimilarLoading,isError:isSimilarError} = useQuery(
     ["favsimilarMovie", { id: id }],
     getSimilarMovies
   );
+
+  if (isLoading || creditsLoading || isSimilarLoading) {
+    return <Spinner />;
+  }
 console.log("got similar ",similarMovie)
 console.log("similar is still loading ",isSimilarLoading)
 console.log("credits in detail page ",credits)
@@ -41,9 +45,7 @@ console.log("credits in detail page ",credits)
     // Handle the case where the data is not yet available
    
   }
-  if (isLoading) {
-    return <Spinner />;
-  }
+
 
   if (isError) {
     return <h1>{error.message}</h1>;
