@@ -22,6 +22,10 @@ import PopularActorsPage from "./pages/popularActorsPage";
 import ActorDetailsPage from "./pages/actorDetailsPage"
 import TvSeriesPage from "./pages/tvSeriesPage";
 import SeriesDetailsPage from "./pages/seriesDetailsPage";
+import AuthContextProvider from "./contexts/authContext";
+import SignUpPage from "./pages/signUpPage";
+import LoginPage from "./pages/loginPage";
+import PrivateRoute from "./PrivateRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,67 +41,62 @@ const queryClient = new QueryClient({
 
 
 const App = () => {
-  const [session, setSession] = useState(null)
+ 
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
+ 
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-
-
+      <AuthContextProvider>  
+       
+    
         {/* <ul>
         <li>
           <Link to="/">Home</Link>
+          <br />
+            <Link to="/signup">Sign Up</Link>
+            <br />
+            <Link to="/login">Log In</Link>
+
         </li>
         <li>
           <Link to="/movies/favourites">Favourites</Link>
         </li>
       </ul> */}
-        <SiteHeader />
+    
+       <SiteHeader />
+       
         <MoviesContextProvider>     {/* New Header  */}
-
-          {session && (
-            <>
-              <SiteHeader session={session} />
-              <Routes>
+        <Routes>  
+    
                 <Route path="/movies/favourite" element={<FavouriteMoviesPage />} />
                 <Route path="/series/favourite" element={<FavouriteSeriesPage />} />
                 <Route path="/movies/upcoming" element={<UpcomingMoviePage />} />
                 <Route path="/movies/popular" element={<PopularMoviePage />} />
                 <Route path="/actors/popular" element={<PopularActorsPage />} />
                 <Route path="/tv/popular" element={<TvSeriesPage />} />
-                <Route path="/movies/:id" element={<MoviePage />} />
+                
+                {/* <Route path="/movies/:id" element={<MoviePage />} /> */}
+                <Route path="/movies/:id" element={
+                <PrivateRoute>
+                  <MoviePage />
+                </PrivateRoute>}
+   />
                 <Route path="/series/:id" element={<SeriesDetailsPage />} />
                 <Route path="/actor/:id" element={<ActorDetailsPage />} />
-                <Route path="/" element={<HomePage key={session.user.id} session={session} />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+                
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path="/reviews/:id" element={<MovieReviewPage />} />
                 <Route path="/reviews/form" element={<AddMovieReviewPage />} />
                 <Route path="/reviewsSeries/form" element={<AddSeriesReviewPage />} />
-              </Routes>
-            </>
-          )}
-          {!session && (
-            <>
-             <Auth></Auth>
-            </>
-          )}
-
-
-
-
-
-
-
+              
+          </Routes>
+    
         </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

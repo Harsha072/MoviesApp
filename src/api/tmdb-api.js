@@ -7,26 +7,69 @@
 //   };
 
 
-export const getMovies = (args) => {
-  console.log("get movies",args)
-  const [, page] = args.queryKey;
+// export const getMovies = (args) => {
+//   console.log("get movies",args)
+//   const [, page] = args.queryKey;
  
-  console.log("page ",page)
-  // if(page===0){
-  //   return
-  // }
+//   console.log("page ",page)
+ 
+//   return fetch(
+//     `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+//   ).then((response) => {
+//     if (!response.ok) {
+//       throw new Error(response.json().message);
+//     }
+//     return response.json();
+//   })
+//   .catch((error) => {
+//      throw error
+//   });
+// };
+
+// export const getMovies = () => {
+//   console.log("movies new ::::::;;;;;;;;;;")
+//   return fetch(
+//     `/api/movies`
+//   ).then((res) => res.json());
+// };
+
+export const getMovies = (args) => {
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error(response.json().message);
-    }
-    return response.json();
-  })
-  .catch((error) => {
-     throw error
-  });
+    `/api/movies/`,{headers: {
+      'Authorization': window.localStorage.getItem('token')
+   }}
+  ).then((res) => res.json());
 };
+
+
+export const getUpcomingMovies = () => {
+  console.log("movies new ::::::;;;;;;;;;;")
+  return fetch(
+    `/api/movies/upcoming`
+  ).then((res) => res.json());
+};
+export const signup = (email, password, firstName, lastName) => {
+  return fetch('/api/accounts', {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ email: email, password: password, firstName: firstName, lastName: lastName })
+  }).then(res => res.json())
+};
+
+export const login = (email, password) => {
+  return fetch('/api/accounts/security/token', {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({ email: email, password: password })
+  }).then(res => res.json())
+};
+
 
 export const getActors = (args) => {
   console.log("get movies",args)
@@ -81,23 +124,23 @@ export const getSimilarSeries = (args) => {
      throw error
   });
 };
-export const getUpcomingMovies = (args) => {
-  console.log("get movies",args)
-  const [, page] = args.queryKey;
-  return fetch(
-         `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
-       ).then((response) => {
-    if (!response.ok) {
+// export const getUpcomingMovies = (args) => {
+//   console.log("get movies",args)
+//   const [, page] = args.queryKey;
+//   return fetch(
+//          `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=${page}`
+//        ).then((response) => {
+//     if (!response.ok) {
       
-      throw new Error(response.json().message);
-    }
-    console.log("the response ",response)
-    return response.json();
-  })
-  .catch((error) => {
-     throw error
-  });
-};
+//       throw new Error(response.json().message);
+//     }
+//     console.log("the response ",response)
+//     return response.json();
+//   })
+//   .catch((error) => {
+//      throw error
+//   });
+// };
 
 export const getPopularMovies = (args) => {
   console.log("get movies",args)
