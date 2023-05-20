@@ -48,23 +48,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
       <AuthContextProvider>  
-       
-    
-        {/* <ul>
-        <li>
-          <Link to="/">Home</Link>
-          <br />
-            <Link to="/signup">Sign Up</Link>
-            <br />
-            <Link to="/login">Log In</Link>
-
-        </li>
-        <li>
-          <Link to="/movies/favourites">Favourites</Link>
-        </li>
-      </ul> */}
-    
-       <SiteHeader />
+     <SiteHeader />
        
         <MoviesContextProvider>     {/* New Header  */}
         <Routes>  

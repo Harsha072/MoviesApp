@@ -31,7 +31,7 @@ export const getUpcomingMovies = () => {
 };
 
 
-
+// `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
 
 
 
@@ -46,16 +46,67 @@ export const signup = (email, password, firstName, lastName) => {
       body: JSON.stringify({ email: email, password: password, firstName: firstName, lastName: lastName })
   }).then(res => res.json())
 };
+export const addFavouriteMovies = (favMovies) => {
+  const id = window.localStorage.getItem('id')
+  console.log("add fav movies ",favMovies)
+  return fetch(`/api/accounts/${id}/favourites`, {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': window.localStorage.getItem('token')
+      },
+      method: 'post',
+      body: JSON.stringify({ type: "movies", movieId:favMovies})
+  }).then(res => res.json())
+};
+export const addFavouriteSeries = (favSeries) => {
+  return fetch('/api/accounts', {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': window.localStorage.getItem('token')
+      },
+      method: 'post',
+      body: JSON.stringify({ type: "series", id:favSeries})
+  }).then(res => res.json())
+};
+
 
 export const login = (email, password) => {
   return fetch('/api/accounts/security/token', {
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      method: 'post',
-      body: JSON.stringify({ email: email, password: password })
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    body: JSON.stringify({ email: email, password: password })
   }).then(res => res.json())
+    .then(data => {
+      console.log("data ",data)
+      const id = data.id; // Access the 'id' field from the response data
+      console.log("Login response - ID:", id);
+      return data; // Return the complete response data
+    });
 };
+
+export const getFavourite = (args) => {
+  console.log("get fave")
+  const id = window.localStorage.getItem('id')
+  return fetch(
+    `/api/accounts/${id}/favourites`,
+    {headers:
+       {
+      'Authorization': window.localStorage.getItem('token')
+   }}
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    console.log("the respnse ",response);
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
+
 
 
 export const getActors = (args) => {
@@ -64,7 +115,30 @@ export const getActors = (args) => {
  
   console.log("page ",page)
   return fetch(
-    `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
+    `/api/actors`,
+    {headers:
+       {
+      'Authorization': window.localStorage.getItem('token')
+   }}
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.json().message);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+     throw error
+  });
+};
+export const getAccount = (email) => {
+  console.log("get account",email)
+  
+ 
+
+  return fetch(
+    `/api/actors`,{headers: {
+      'Authorization': window.localStorage.getItem('token')
+   }}
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
@@ -162,7 +236,9 @@ export const getPopularTvSeries = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `/api/movies/${id}`,{headers: {
+        'Authorization': window.localStorage.getItem('token')
+     }}
     ).then((response) => {
       console.log(response)
       if (!response.ok) {
@@ -201,7 +277,9 @@ export const getPopularTvSeries = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/tv/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `/api/series/${id}`,{headers: {
+        'Authorization': window.localStorage.getItem('token')
+     }}
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -217,7 +295,9 @@ export const getPopularTvSeries = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `/api/actors/${id}`,{headers: {
+        'Authorization': window.localStorage.getItem('token')
+     }}
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -233,7 +313,9 @@ export const getPopularTvSeries = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `/api/actors/credits/${id}`,{headers: {
+        'Authorization': window.localStorage.getItem('token')
+     }}
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -248,9 +330,7 @@ export const getPopularTvSeries = (args) => {
 
   export const getGenres = async () => {
     return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        import.meta.env.VITE_TMDB_KEY +
-        "&language=en-US"
+    
     ).then( (response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -284,11 +364,14 @@ export const getPopularTvSeries = (args) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/tv/${id}/images?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `/api/series/images/${id}`,{headers: {
+        'Authorization': window.localStorage.getItem('token')
+     }}
     ).then( (response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
       }
+    
       return response.json();
   
     })
@@ -299,7 +382,7 @@ export const getPopularTvSeries = (args) => {
   
   export const getMovieReviews = (id) => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      
     )
       .then((res) => res.json())
       .then((json) => {

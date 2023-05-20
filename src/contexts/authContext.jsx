@@ -20,11 +20,20 @@ const AuthContextProvider = (props) => {
     localStorage.setItem("token", data);
     setAuthToken(data);
   }
+  const setId = (id) => {
+    console.log("setting ittt")
+    localStorage.setItem("id", id);
+    
+  }
 
   const authenticate = async (email, password) => {
     const result = await login(email, password);
-    if (result.token) {
+    const {token,id} = result
+    console.log("the token ",token)
+    if (result.token && id) {
+     
       setToken(result.token)
+      setId(id)
       setIsAuthenticated(true);
       setEmail(email);
     }
