@@ -59,13 +59,15 @@ export const addFavouriteMovies = (favMovies) => {
   }).then(res => res.json())
 };
 export const addFavouriteSeries = (favSeries) => {
-  return fetch('/api/accounts', {
+  console.log("series",favSeries)
+  const id = window.localStorage.getItem('id')
+  return fetch(`/api/accounts/${id}/favourites`, {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': window.localStorage.getItem('token')
       },
       method: 'post',
-      body: JSON.stringify({ type: "series", id:favSeries})
+      body: JSON.stringify({ type: "series", movieId:favSeries})
   }).then(res => res.json())
 };
 
@@ -235,6 +237,7 @@ export const getPopularTvSeries = (args) => {
     console.log("get nmovie",args)
     const [, idPart] = args.queryKey;
     const { id } = idPart;
+   
     return fetch(
       `/api/movies/${id}`,{headers: {
         'Authorization': window.localStorage.getItem('token')
@@ -276,6 +279,7 @@ export const getPopularTvSeries = (args) => {
     console.log("get nmovie",args)
     const [, idPart] = args.queryKey;
     const { id } = idPart;
+    console.log("the series id",id)
     return fetch(
       `/api/series/${id}`,{headers: {
         'Authorization': window.localStorage.getItem('token')
