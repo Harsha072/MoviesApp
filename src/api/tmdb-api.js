@@ -334,7 +334,10 @@ export const getPopularTvSeries = (args) => {
 
   export const getGenres = async () => {
     return fetch(
-    
+      `/api/movies/genre/`,
+      {headers: {
+        'Authorization': window.localStorage.getItem('token')
+      }}
     ).then( (response) => {
       if (!response.ok) {
         throw new Error(response.json().message);

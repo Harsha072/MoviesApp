@@ -61,7 +61,9 @@ const context = useContext(AuthContext);
         }
   
         const response = await getFavourite();
-        const flattenedMovieIds = response.flatMap((movie) => movie.movieId);
+        const filtred = response.filter((movie) => movie.type === "movies")
+        const flattenedMovieIds = filtred.flatMap((movie) => movie.movieId);
+        console.log("flattenedMovieIds series :", flattenedMovieIds);
         console.log("flattenedMovieIds:", flattenedMovieIds);
   
         setFavouriteMoviesResponse(flattenedMovieIds);

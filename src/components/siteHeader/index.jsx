@@ -59,7 +59,8 @@ const SiteHeader = () => {
       setOpenSubMenu(true);
       handleMenuClose();
     } else if (pageURL === "/signout") {
-      supabase.auth.signOut();
+      window.localStorage.clear();
+      window.location.reload()
     } else {
       navigate(pageURL);
       handleMenuClose();
