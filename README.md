@@ -1,5 +1,4 @@
-# Enterprise Web Development - Assignment 1.
-
+# Movies App
 __Name:__ [Puttaswamy Harsha]
 
 ## Overview.
